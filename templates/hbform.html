@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+      integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf"
+      crossorigin="anonymous"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@1,900&display=swap"
+      rel="stylesheet"
+    />
+<link rel="stylesheet" href="{% static 'css/nav.css' %}"/>
+<link rel="stylesheet" href="{% static 'css/forms.css' %}"/>
+<body>
+
+<header>
+      <div>
+        <i class="fas fa-plane"></i>
+        <p>Travel</p>
+      </div>
+      <nav>
+        <ul>
+          <li><a href="{%  url 'index' %}">Home</a></li>
+          <li><a href="{%  url 'logout' %}">Logout</a></li>
+        </ul>
+      </nav>
+</header>
+
+<div class="form">
+
+<h2>Hotel Booking Form</h2>
+
+<form method="post">
+    {% csrf_token %}
+
+    <input name="hotelid" value="{{ hotel.id }}" hidden>
+
+    <p class="p" >Address: {{ hotel.address }}</p>
+    <br>
+    No of people: <input id="count" type="number" name="noofpeople"/>
+    <br>
+    <p class="p" >Cost of ac room: {{ hotel.cost_ac }}</p>
+    <br>
+    <p class="p" >Cost of non ac room: {{ hotel.cost_non_ac }}</p>
+    <br>
+    <p class="p" >Cost per person: {{ hotel.cost_per_person }}</p>
+    AC: <input id="ac" type="checkbox" name="roomtype"/>
+    <br>
+    Start-date: <input id="start" type="date" name="startdate"/>
+    <br>
+    End-date: <input id="end" type="date" name="enddate"/>
+    <br>
+    <button class="button" type="button" onclick="calculate()">Calculate</button>
+    <p id="cost"></p>
+    <input name="total" id="total" hidden>
+
+    <input class="button" id="sub" style="display: none" type="submit" value="Book now">
+</form>
+</div>
+
+<script>
+    function calculate() {
+        var count = document.getElementById('count').value
+        var ac = document.getElementById('ac').checked
+        var start = new Date(document.getElementById("start").value);
+        var end = new Date(document.getElementById("end").value);
+        var days = parseInt((end - start) / (24 * 3600 * 1000));
+        console.log(days)
+        if (ac == true) {
+            var cost =
+            (days *{{ hotel.cost_ac }})+ (parseInt(count) *{{ hotel.cost_per_person }})
+        } else {
+            var cost = (days *{{ hotel.cost_non_ac }}) +(parseInt(count) *{{ hotel.cost_per_person }})
+        }
+        document.getElementById('cost').innerHTML = 'Cost: ' + cost;
+        document.getElementById('total').value = cost;
+        document.getElementById('sub').style.display = 'block';
+    }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+      integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf"
+      crossorigin="anonymous"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@1,900&display=swap"
+      rel="stylesheet"
+    />
+<link rel="stylesheet" href="{% static 'css/nav.css' %}"/>
+<link rel="stylesheet" href="{% static 'css/forms.css' %}"/>
+<body>
+
+<header>
+      <div>
+        <i class="fas fa-plane"></i>
+        <p>Travel</p>
+      </div>
+      <nav>
+        <ul>
+          <li><a href="{%  url 'index' %}">Home</a></li>
+          <li><a href="{%  url 'logout' %}">Logout</a></li>
+        </ul>
+      </nav>
+</header>
+
+<div class="form">
+
+<h2>Vehicle Booking Form</h2>
+
+<form method="post">
+    {% csrf_token %}
+        <input name="vehid" value="{{ vehicle.id }}" hidden>
+        Source: <input type = "text" name = "Source" />
+         <br>
+        Destination: <input type = "text" name = "Destination" />
+         <br>
+        Vehicle type: <p class="p" >{{ vehicle.type }}</p>
+         <br>
+        Base cost: <p class="p" id="multiplier"> {{ vehicle.multiplier }}</p>
+        <br>
+        Start-date: <input type = "date" name = "startdate" />
+         <br>
+        End-date: <input type = "date" name = "enddate" />
+         <br>
+        Kilometers: <input  id="km" type = "number" name = "kilometers" />
+
+        <button class="button" onclick="calculate()" type="button">Calculate</button>
+         <br>
+        <p id="cost"></p>
+        <input value="" hidden id="total" name="total">
+        <input class="button" id="sub" style="display: none" type="submit" value="Book now">
+    </form>
+</div>
+<script>
+    function calculate(){
+        var mul = document.getElementById('multiplier').innerHTML
+        var km = document.getElementById('km').value
+
+        var cost = parseFloat(mul) * km
+        document.getElementById('total').value = cost
+        document.getElementById('cost').innerHTML=cost
+        document.getElementById('sub').style.display='block'
+    }
+</script>
+
+</body>
+</html>

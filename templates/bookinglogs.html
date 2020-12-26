@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+      integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf"
+      crossorigin="anonymous"
+    />
+<link rel="stylesheet" href="{% static 'css/nav.css' %}"/>
+<link rel="stylesheet" type="text/css" href="{% static 'css/table.css' %}">
+
+
+<body>
+    <header>
+      <div>
+        <i class="fas fa-plane"></i>
+        <p>Travel</p>
+      </div>
+      <nav>
+        <ul>
+          <li><a href="{%  url 'index' %}">Home</a></li>
+          <li><a href="{%  url 'logout' %}">Logout</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <h1>Booking logs</h1>
+
+    <table class="content-table" >
+        <caption>
+            Vehicle Bookings
+        </caption>
+        <thead>
+
+            <tr>
+                <th>Name</th>
+                <th>Type</th>
+                <th>Source</th>
+                <th>Destination</th>
+                <th>Date</th>
+                <th>Kilometers</th>
+                <th>Price</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for vb in vehbookings %}
+            <tr>
+                <td>{{ vb.vehicle.name }}</td>
+                <td>{{ vb.vehicle.type }}</td>
+                <td>{{ vb.source}}</td>
+                <td>{{ vb.destination }}</td>
+                <td>{{ vb.from_date }} to {{ vb.to_date }}</td>
+                <td>{{ vb.kilometers }}</td>
+                <td>{{ vb.cost }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    
+    <table class="content-table">
+        <caption>
+            Hotel bookings
+        </caption>
+        <thead>
+
+            <tr>
+                <th>Name</th>
+                <th>Address</th>
+                <th>Date</th>
+                <th>No of people</th>
+                <th>Room no</th>
+                <th>Price</th>
+            </tr>
+
+        </thead>
+        <tbody>
+        {% for hb in hotbookings %}
+            <tr>
+                <td>{{ hb.hotel.name }}</td>
+                <td>{{ hb.hotel.address }}</td>
+                <td>{{ hb.from_date }} to {{ hb.to_date }}</td>
+                <td>{{ hb.count }}</td>
+                <td>{{ hb.room_no }}</td>
+                <td>{{ hb.cost }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

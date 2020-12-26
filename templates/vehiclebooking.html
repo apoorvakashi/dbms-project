@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<link
+        rel="stylesheet"
+        href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+        integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf"
+        crossorigin="anonymous"
+/>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+      integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+<link
+        href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@1,900&display=swap"
+        rel="stylesheet"
+/>
+<link rel="stylesheet" href="{% static 'css/nav.css' %}"/>
+<link rel="stylesheet" href="{% static 'css/table.css' %}"/>
+
+<body>
+<header>
+    <div>
+        <i class="fas fa-plane"></i>
+        <p>Travel</p>
+    </div>
+    <nav>
+        <ul>
+            <li><a href="{% url 'index' %}">Home</a></li>
+            <li><a href="{% url 'logout' %}">Logout</a></li>
+        </ul>
+    </nav>
+</header>
+
+<h1>Vehicle Booking</h1>
+{% if request.user.is_superuser %}
+    <a class="btn btn-sm btn-primary" href="{% url 'addvehicle' %}" style="margin-right: 10px;">Add vehicle</a>
+    <a class="btn btn-sm btn-primary" href="{% url 'vehiclehistory' %}">View History</a><br>
+{% endif %}
+<br>
+<p style="margin-bottom: 10px">
+    Browse Vehicles
+</p>
+<table class="content-table">
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Register number</th>
+        <th>Type</th>
+        <th>No of seats</th>
+        <th>Price</th>
+        <th></th>
+        {% if request.user.is_superuser %}
+            <th></th>
+            <th></th>
+        {% endif %}
+    </tr>
+    </thead>
+    <tbody>
+    {% for vehicle in vehicles %}
+        <tr>
+            <td>{{ vehicle.name }}</td>
+            <td>{{ vehicle.reg_no }}</td>
+            <td>{{ vehicle.type }}</td>
+            <td>{{ vehicle.seats }}</td>
+            <td>{{ vehicle.multiplier }}</td>
+            <td><a class="link" href="{% url 'vbform' vehicle.id %}">Book now</a></td>
+            {% if request.user.is_superuser %}
+                <td><a class="link" href="{% url 'deletevehicle' vehicle.id %}"> Delete </a></td>
+                <td><a class="link" href="{% url 'updatevehicle' vehicle.id %}"> Edit </a></td>
+            {% endif %}
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+
+</body>
+</html>

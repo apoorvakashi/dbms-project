@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<link
+        rel="stylesheet"
+        href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+        integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf"
+        crossorigin="anonymous"
+/>
+<link
+        href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@1,900&display=swap"
+        rel="stylesheet"
+/>
+<link rel="stylesheet" href="{% static 'css/nav.css' %}"/>
+<link rel="stylesheet" href="{% static 'css/forms.css' %}"/>
+<body>
+<header>
+    <div>
+        <i class="fas fa-plane"></i>
+        <p>Travel</p>
+    </div>
+    <nav>
+        <ul>
+            <li><a href="{% url 'index' %}">Home</a></li>
+            <li><a href="{% url 'logout' %}">Logout</a></li>
+        </ul>
+    </nav>
+</header>
+<div class="form">
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button class="button" type="submit">Save</button>
+        <button class="button" type="button" onclick="window.history.back(); return false;">Cancel</button>
+    </form>
+</div>
+
+</body>
+</html>

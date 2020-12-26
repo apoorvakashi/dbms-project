@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+      integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf"
+      crossorigin="anonymous"
+    />
+<link rel="stylesheet" href="{% static 'css/style.css' %}"/>
+<link rel="stylesheet" type="text/css" href="{% static 'css/login.css' %}">
+
+
+<body>
+<header>
+      <div>
+        <i class="fas fa-plane"></i>
+        <p>Travel</p>
+      </div>
+      <nav>
+        <ul>
+          <li><a href="{%  url 'login' %}">Login</a></li>
+        </ul>
+      </nav>
+</header>
+
+<div class="login-page">
+<div class="form">
+    <h1 style="color: white">Sign Up</h1>
+
+    <form method="post">
+        {% csrf_token %}
+        <input type="text" placeholder="Enter Name" name="name" required>
+        <br>
+        <input type="email" placeholder="Enter Email" name="email" required>
+        <br>
+        <input type="password" placeholder="Enter Password" name="password" required>
+        <br>
+        <input type="password" placeholder="Confirm Password" name="password2" required>
+        <br>
+        <input class="button" type="submit", value="Sign up">
+        {% if msg %}
+            <p>{{ msg }}</p>
+        {%  endif %}
+    </form>
+
+</div>
+</div>
+</body>
+</html>

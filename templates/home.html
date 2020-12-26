@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+      integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf"
+      crossorigin="anonymous"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@1,900&display=swap"
+      rel="stylesheet"
+    />
+<link rel="stylesheet" href="{% static 'css/style.css' %}"/>
+  <body>
+    <header>
+      <div>
+        <i class="fas fa-plane"></i>
+        <p>Travel</p>
+      </div>
+      <nav>
+        <ul>
+          <li><a href="{%  url 'index' %}">Home</a></li>
+          <li><a href="{%  url 'logout' %}">Logout</a></li>
+        </ul>
+      </nav>
+    </header>
+    <section class="titles">
+      <h1>Welcome to Travel Agency</h1>
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam maiores
+        consectetur, laboriosam rerum obcaecati.
+      </p>
+    </section>
+
+    <section class="container-boxes">
+      <div class="box">
+        <div class="icon">
+          <a href="{% url 'vehicle' %}"><i class="fas fa-book"></i></a>
+        </div>
+        <div class="text">
+          <a href="{% url 'vehicle' %}">
+            <h3>Vehicles</h3>
+            <p>Browse our vehicles and book now</p>
+          </a>
+        </div>
+      </div>
+      <div class="box">
+        <div class="icon">
+          <a href="{% url 'hotel' %}"><i class="fas fa-book"></i></a>
+        </div>
+        <div class="text">
+          <a href="{% url 'hotel' %}">
+            <h3>Hotels</h3>
+            <p>Choose where you want to stay.</p>
+          </a>
+        </div>
+      </div>
+      <div class="box">
+        <div class="icon">
+          <a href="{% url 'logs' %}"><i class="fas fa-book"></i></a>
+        </div>
+        <div class="text">
+          <a href="{% url 'logs' %}">
+            <h3>Booking Logs</h3>
+            <p>Look at your previous logs.</p>
+          </a>
+        </div>
+      </div>
+    </section>
+  </body>
+</html>
+
